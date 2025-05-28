@@ -4,7 +4,8 @@ const unzipper = require("unzipper");
 const fs = require("fs");
 const path = require("path");
 const { spawn } = require("child_process");
-const { Client, GatewayIntentBits, REST } = require('discord.js');
+const { Client, GatewayIntentBits, REST, Collection } = require('discord.js');
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const { HttpsProxyAgent } = require('https-proxy-agent');
 const dns = require('dns');
 
