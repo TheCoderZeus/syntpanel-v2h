@@ -1,0 +1,16 @@
+[2025-05-17T15:13:25.381Z] Instalando dependências para Bot 1747494804074
+
+added 26 packages, and audited 27 packages in 19s
+
+7 packages are looking for funding
+  run `npm fund` for details
+
+4 low severity vulnerabilities
+
+To address all issues, run:
+  npm audit fix
+
+Run `npm audit` for details.
+
+[2025-05-17T15:13:46.799Z] Iniciando bot Bot 1747494804074
+Bot está online!

@@ -1,0 +1,21 @@
+
+  /* Estilos adicionais para o painel */
+  .notification {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    color: white;
+  }
+  
+  .success {
+    background-color: #43b581;
+  }
+  
+  .error {
+    background-color: #f04747;
+  }
+  
+  .warning {
+    background-color: #faa61a;
+  }
+  
