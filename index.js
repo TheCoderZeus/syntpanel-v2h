@@ -4,21 +4,22 @@ const unzipper = require("unzipper");
 const fs = require("fs");
 const path = require("path");
 const { spawn } = require("child_process");
-const { Client, GatewayIntentBits, REST, Collection, Events } = require('discord.js');
+const { Client, GatewayIntentBits, REST, Routes, Collection, Events, EmbedBuilder } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { HttpsProxyAgent } = require('https-proxy-agent');
 const dns = require('dns');
+const { REST: DiscordRest } = require('@discordjs/rest');
 
 // Force IPv4 for all DNS lookups
 dns.setDefaultResultOrder('ipv4first');
 
 // Configurações
-const TOKEN = process.env.DISCORD_TOKEN || 'MTM3MzMwMzEyMTQwODY4ODE4OA.GeFY4H.R-5thGdSdJt-6mfnhN_q3sNtGw1d7yc-IK6SF8';
+const TOKEN = process.env.DISCORD_TOKEN || 'MTM3MzMwMzEyMTQwODY4ODE4OA.GfUge0.IgJfhqZVC4q60Q-ykKaVjGfFsemiQXJHtHdT-M';
 const CLIENT_ID = process.env.CLIENT_ID || '1373303121408688188';
 const PORT = process.env.PORT || 3000;
 
 // Configure REST client
-const rest = new REST({ version: '10' }).setToken(TOKEN);
+const rest = new DiscordRest({ version: '10' }).setToken(TOKEN);
 
 // Inicialização do cliente Discord
 const client = new Client({
@@ -711,13 +712,8 @@ client.on(Events.InteractionCreate, async interaction => {
       await interaction.reply('❌ Ocorreu um erro ao processar este comando.');
     }
   }
-});
-
-// Função de implantação (deploy) dos comandos slash
 async function deployCommands() {
   try {
-    console.log('🚀 Iniciando implantação dos comandos slash...');
-    
     if (!TOKEN || TOKEN === 'seu_token_aqui') {
       console.error('❌ Token do Discord não configurado!');
       console.log('Configure-o no arquivo .env ou diretamente no código.');
@@ -730,13 +726,16 @@ async function deployCommands() {
       return false;
     }
     
-    const rest = new REST({ version: '10' }).setToken(TOKEN);
-    
+    // Usar o cliente REST configurado globalmente
     console.log('⏳ Registrando comandos slash...');
     
+    // Obter comandos formatados
+    const commandsData = commands.map(command => command.toJSON());
+    
+    // Registrar comandos globalmente
     await rest.put(
       Routes.applicationCommands(CLIENT_ID),
-      { body: commands }
+      { body: commandsData }
     );
     
     console.log('✅ Comandos slash implantados com sucesso!');
@@ -1011,3 +1010,4 @@ const server = app.listen(PORT, () => {
     console.error('❌ Erro ao iniciar o bot do Discord:', error);
   }
 });
+})
