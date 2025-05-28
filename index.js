@@ -17,18 +17,8 @@ const TOKEN = process.env.DISCORD_TOKEN || 'MTM3MzMwMzEyMTQwODY4ODE4OA.GeFY4H.R-
 const CLIENT_ID = process.env.CLIENT_ID || '1373303121408688188';
 const PORT = process.env.PORT || 3000;
 
-// Create a custom agent that forces IPv4
-const https = require('https');
-const agent = new https.Agent({
-  family: 4,
-  keepAlive: true,
-  rejectUnauthorized: true
-});
-
-// Configure REST client with IPv4 agent
-const rest = new REST({ version: '10' })
-  .setToken(TOKEN)
-  .setAgent(agent);
+// Configure REST client
+const rest = new REST({ version: '10' }).setToken(TOKEN);
 
 // Inicialização do cliente Discord
 const client = new Client({
@@ -38,8 +28,8 @@ const client = new Client({
     GatewayIntentBits.MessageContent,
   ],
   rest: {
-    api: 'https://discord.com/api',
-    agent: agent
+    version: '10',
+    api: 'https://discord.com/api'
   }
 });
 
